@@ -1,8 +1,13 @@
+import React, { FC, ReactNode } from "react";
 import { Box } from "@mui/material";
 import Footer from "../Footer";
 import Header from "../Header";
 
-export default function Layout({ children }) {
+interface LayoutProps {
+  children: ReactNode,
+}
+
+const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <Box>
       <Header />
@@ -11,3 +16,4 @@ export default function Layout({ children }) {
     </Box>
   );
 }
+export default Layout;

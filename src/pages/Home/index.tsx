@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   Box,
   FormControl,
@@ -10,71 +10,21 @@ import {
   Backdrop,
   Pagination,
 } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import axios from "axios";
 import { Search } from "@mui/icons-material";
 import Banner from "../../assets/images/Banner.png";
 import Card from "../../components/Card";
+import useStyles from "./styles";
 
-const useStyles = makeStyles((theme) => ({
-  Container: {
-    width: "100vw",
-    marginBottom: "3vh",
-    marginTop: "17.8vh",
-  },
-  BannerStyle: {
-    width: "100%",
-  },
-  SearchBarContainer: {
-    display: "flex",
-    [theme.breakpoints.down("sm")]: {
-      flexDirection: "column",
-      justifyContent: "center",
-    },
-    [theme.breakpoints.up("sm")]: {
-      flexDirection: "row",
-      marginBlock: "4vh",
-      justifyContent: "space-evenly",
-    },
-    width: "90vw",
-    margin: "auto",
-  },
-  SearchBarStyle: {
-    [theme.breakpoints.down("sm")]: {
-      width: "60vw !important",
-      marginTop: "2vh",
-      marginInline: "auto !important",
-    },
-    [theme.breakpoints.up("sm")]: {
-      width: "22vw !important",
-    },
-    backgroundColor: "whitesmoke",
-  },
-  InputLabelStyle: {
-    [theme.breakpoints.down("sm")]: {
-      marginInline: "15vw",
-      marginTop: "2vh",
-    },
-  },
-  CardsContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "78vw",
-    marginInline: "11vw",
-  },
-}));
-
-export default function Home() {
+const Home:FC=()=>{
   const [categoriesList, setCategoriesList] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState([]);
-  const [priceRange, setPriceRange] = useState(Infinity);
-  const [totalPages, setTotalPages] = useState();
-  const [pageNo, setPageNo] = useState(1);
-  const [startingIndex, setStartingIndex] = useState(0);
-  const [endingIndex, setEndingIndex] = useState(5);
+  const [priceRange, setPriceRange] = useState<number>(Infinity);
+  const [totalPages, setTotalPages] = useState<number>();
+  const [pageNo, setPageNo] = useState<number>(1);
+  const [startingIndex, setStartingIndex] = useState<number>(0);
+  const [endingIndex, setEndingIndex] = useState<number>(5);
 
   const classes = useStyles();
 
@@ -277,3 +227,5 @@ export default function Home() {
     </>
   );
 }
+
+export default Home;

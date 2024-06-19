@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Search } from "@mui/icons-material";
 import {
   Backdrop,
@@ -7,85 +7,20 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Pagination,
   Select,
   TextField,
   Typography,
 } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { useSelector } from "react-redux";
 import Ellipse from "../../assets/icons/Ellipse1.png";
 import Card from "../../components/Card";
 import axios from "axios";
+import useStyles from "./styles";
 
-const useStyles = makeStyles((theme) => ({
-  Container: {
-    width: "80vw",
-    marginTop:'17.8vh',
-    marginInline: "10vw",
-  },
-  TopBlock: {
-    display: "flex",
-    alignItems: "center",
-    minHeight: "40vh",
-  },
-  Image: {
-    [theme.breakpoints.down("sm")]: {
-      height: "12vh",
-      marginInline: "5vw",
-    },
-    [theme.breakpoints.up("sm")]: {
-      height: "20vh",
-      marginInline: "8vw",
-    },
-  },
-  Title: {
-    [theme.breakpoints.down("sm")]: {
-      fontSize: "18px !important",
-      paddingBottom: "2vh",
-    },
-    [theme.breakpoints.up("sm")]: {
-      fontSize: "26px !important",
-      paddingBottom: "3vh",
-    },
-    fontWeight: "900 !important",
-  },
-  Text: {
-    [theme.breakpoints.down("sm")]: {
-      fontSize: "14px !important",
-    },
-    [theme.breakpoints.up("sm")]: {
-      fontSize: "19px !important",
-    },
-  },
-  SearchBarContainer: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  SearchBarStyle: {
-    [theme.breakpoints.down("sm")]: {
-      width: "32vw !important",
-    },
-    [theme.breakpoints.up("sm")]: {
-      width: "22vw !important",
-    },
-    backgroundColor: "whitesmoke",
-  },
-  CardsContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-}));
-
-export default function Store() {
+const Store: FC = () => {
   const [nameFilter, setNameFilter] = useState();
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [priceRange, setPriceRange] = useState(Infinity);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [priceRange, setPriceRange] = useState<number>(Infinity);
   const classes = useStyles();
 
   useEffect(() => {
@@ -118,7 +53,7 @@ export default function Store() {
       });
   };
 
-  const useDebounce=(e)=>{
+  const useDebounce = (e) => {
     setTimeout(() => {
       getSearchData(e)
     }, 1800);
@@ -134,45 +69,45 @@ export default function Store() {
           <CircularProgress color="inherit" />
         </Backdrop>
       )}
-    <Box className={classes.Container}>
-      <Box className={classes.TopBlock}>
-        <img src={Ellipse} className={classes.Image} />
-        <Box sx={{ padding: "5px" }}>
-          <Typography className={classes.Title}>Pine Technologies</Typography>
-          <Typography className={classes.Text}>
-            It is a big established fact that a reader will be distracted by the
-            readable content of a page when looking at its layout. the point of
-            using lorem ipsum is that it has a
-          </Typography>
-          <Typography className={classes.Text} sx={{ paddingTop: "2vh" }}>
-            Shop # 206 ZS Plaza Gilgit
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography className={classes.Text}>03402042304</Typography>
-            <Typography className={classes.Text}>Garments</Typography>
+      <Box className={classes.Container}>
+        <Box className={classes.TopBlock}>
+          <img src={Ellipse} className={classes.Image} />
+          <Box sx={{ padding: "5px" }}>
+            <Typography className={classes.Title}>Pine Technologies</Typography>
+            <Typography className={classes.Text}>
+              It is a big established fact that a reader will be distracted by the
+              readable content of a page when looking at its layout. the point of
+              using lorem ipsum is that it has a
+            </Typography>
+            <Typography className={classes.Text} sx={{ paddingTop: "2vh" }}>
+              Shop # 206 ZS Plaza Gilgit
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <Typography className={classes.Text}>03402042304</Typography>
+              <Typography className={classes.Text}>Garments</Typography>
+            </Box>
           </Box>
         </Box>
-      </Box>
 
-      <Box className={classes.SearchBarContainer}>
-        <TextField
-          placeholder="Search bar"
-          className={classes.SearchBarStyle}
-          onChange={(e)=>useDebounce(e)}
-          value={nameFilter}
-          InputProps={{
-            startAdornment: (
-              <Search sx={{ fontSize: "20px", color: "#808080" }} />
-            ),
-          }}
-        />
-        <FormControl>
+        <Box className={classes.SearchBarContainer}>
+          <TextField
+            placeholder="Search bar"
+            className={classes.SearchBarStyle}
+            onChange={(e) => useDebounce(e)}
+            value={nameFilter}
+            InputProps={{
+              startAdornment: (
+                <Search sx={{ fontSize: "20px", color: "#808080" }} />
+              ),
+            }}
+          />
+          <FormControl>
             <InputLabel className={classes.InputLabelStyle}>
               Min Price-Max Price
             </InputLabel>
@@ -193,9 +128,9 @@ export default function Store() {
               <MenuItem value={Infinity}>More than 1000</MenuItem>
             </Select>
           </FormControl>
-      </Box>
+        </Box>
 
-      <Box className={classes.CardsContainer}>
+        <Box className={classes.CardsContainer}>
           {data &&
             data
               .filter((filtered) => filtered.price < priceRange)
@@ -221,3 +156,4 @@ export default function Store() {
     </>
   );
 }
+export default Store;

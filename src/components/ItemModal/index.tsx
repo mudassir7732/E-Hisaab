@@ -1,60 +1,14 @@
+import React, { FC } from "react";
 import { Box, Button, Divider, Grid, Modal, Typography } from "@mui/material";
-import Ellipse from "../../assets/icons/Ellipse1.png";
-import { makeStyles } from "@mui/styles";
 import { ControlPoint, RemoveCircleOutline } from "@mui/icons-material";
-import { useEffect, useState } from "react";
-import {
-  add_item,
-  add_user,
-  remove_item,
-} from "../../store/reducers/cartSlice";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import Ellipse from "../../assets/icons/Ellipse1.png";
+import { ModalProps } from "../../types/modalProps";
+import useStyles from "./styles";
 
-const useStyles = makeStyles((theme) => ({
-  Container: {
-    width: "fit-content",
-    maxWidth: "70vw",
-    margin: "auto",
-    backgroundColor: "#fff",
-    [theme.breakpoints.down("sm")]: {
-      marginTop: "2vh",
-    },
-    [theme.breakpoints.up("sm")]: {
-      marginTop: "10vh",
-    },
-  },
-  ImageBlock: {
-    [theme.breakpoints.down("sm")]: {
-      width: "55vw",
-    },
-    [theme.breakpoints.up("sm")]: {
-      width: "40vw !important",
-    },
-  },
-  DetailsBlock: {
-    width: "100%",
-    backgroundColor:'whitesmoke',
-  },
-  Logo: {
-    height: "6vh",
-    width: "6vh",
-    marginRight: "3vh",
-  },
-  StoreName: {
-    fontSize: "15px !important",
-    fontWeight: "600 !important",
-  },
-  StoreAddress: {
-    fontSize: "13px !important",
-  },
-}));
 
-export default function ItemModal(props) {
+const ItemModal: FC<ModalProps> = (props) => {
+  console.log(props, ' = modal Props ')
   const classes = useStyles();
-  const dispatch = useDispatch();
-
-  const cartData = useSelector((state) => state.cart);
 
   const {
     show,
@@ -97,7 +51,7 @@ export default function ItemModal(props) {
           </Box>
           <Divider />
           <Box sx={{ padding: "3vh", paddingRight: "8vh" }}>
-            <Typography sx={{fontWeight:'900', color:'navy', textDecorationLine:'underline'}}>{title}</Typography>
+            <Typography sx={{ fontWeight: '900', color: 'navy', textDecorationLine: 'underline' }}>{title}</Typography>
             <Box
               sx={{
                 display: "flex",
@@ -106,7 +60,7 @@ export default function ItemModal(props) {
                 justifyContent: "space-between",
               }}
             >
-              <Typography sx={{ marginTop: "1vh", color:'red' }}>
+              <Typography sx={{ marginTop: "1vh", color: 'red' }}>
                 Rs.{price * count}
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row" }}>
@@ -133,7 +87,7 @@ export default function ItemModal(props) {
                 justifyContent: "center",
               }}
             >
-              <Button sx={{marginTop:'1vh'}}
+              <Button sx={{ marginTop: '1vh' }}
                 variant="outlined"
                 onClick={() => confirmOrder({ title, price, image, count })}
               >
@@ -146,3 +100,4 @@ export default function ItemModal(props) {
     </Modal>
   );
 }
+export default ItemModal;
