@@ -28,7 +28,7 @@ const Home:FC=()=>{
 
   const classes = useStyles();
 
-  const getCardData = async (e) => {
+  const getCardData = async (e:any) => {
     await axios
       .get("https://dummyjson.com/products")
       .then((res) => {
